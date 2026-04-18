@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>COMMERCIAL ROOTING - Offer Sheet</title>
+    <!-- Chart.js for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        /* ==================== GLOBAL STYLES ==================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* ==================== LOGIN PAGE STYLES ==================== */
+        #loginPage {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a472a 0%, #2d5a3b 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            max-width: 450px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, #0a2a1a, #1e3a2a);
+            padding: 32px 28px;
+            border-bottom: 4px solid #d4a373;
+            text-align: center;
+        }
+        
+        .login-header h1 {
+            font-size: 1.6rem;
+            color: #f4c542;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+        
+        .login-header p {
+            color: #a8c9a0;
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+        
+        .login-body {
+            padding: 36px 32px;
+            background: #fefbf5;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            background: #f0ede5;
+            padding: 6px;
+            border-radius: 50px;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 40px;
+            color: #5a6e4a;
+        }
+        
+        .tab.active {
+            background: #d4a373;
+            color: white;
+        }
+        
+        .form-group {
+            margin-bottom: 22px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #6b5a3e;
+            margin-bottom: 8px;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid #e2d9c8;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            background: white;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #d4a373;
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 700;
+            cursor: pointer;
+            background: #d4a373;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .btn-login:hover {
+            background: #b87a44;
+        }
+        
+        .forgot-link {
+            text-align: right;
+            margin-top: -12px;
+            margin-bottom: 24px;
+        }
+        
+        .forgot-link a {
+            color: #d4a373;
+            font-size: 0.8rem;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .forgot-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            color: #a09070;
+            font-size: 0.8rem;
+            margin: 24px 0;
+        }
+        
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e2d9c8;
+        }
+        
+        .divider span {
+            padding: 0 12px;
+        }
+        
+        .social-login {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border: 1.5px solid #e2d9c8;
+            border-radius: 40px;
+            background: white;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: #4a5a3a;
+        }
+        
+        .social-btn img {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .social-btn.google:hover {
+            background: #f8f9fa;
+            border-color: #4285f4;
+        }
+        
+        .social-btn.microsoft:hover {
+            background: #f8f9fa;
+            border-color: #00a4ef;
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .login-footer {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e6dfcf;
+            color: #6b5a3e;
+            font-size: 0.85rem;
+        }
+        
+        .back-to-login {
+            text-align: center;
+            margin-top: 16px;
+        }
+        
+        .back-to-login a {
+            color: #d4a373;
+            font-size: 0.85rem;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .verification-code {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .verification-code input {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 8px;
+        }
+        
+        .timer {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #6b5a3e;
+            margin-top: 8px;
+        }
+        
+        .resend-link {
+            color: #d4a373;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .resend-link.disabled {
+            color: #a09070;
+            cursor: not-allowed;
+            text-decoration: none;
+        }
+
+        /* ==================== INTERFACE PAGE STYLES ==================== */
+        #interfacePage {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a472a 0%, #2d5a3b 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        #interfacePage .app-container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+
+        #interfacePage .app-header {
+            background: linear-gradient(135deg, #0a2a1a, #1e3a2a);
+            padding: 20px 28px;
+            border-bottom: 4px solid #d4a373;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        #interfacePage .app-header h1 {
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            color: #f4c542;
+            font-weight: 800;
+        }
+
+        #interfacePage .user-section {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        #interfacePage .user-info {
+            color: #e2dccd;
+            font-size: 0.9rem;
+        }
+
+        #interfacePage .logout-btn {
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: none;
+            background: #d9534f;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        #interfacePage .logout-btn:hover {
+            background: #c9302c;
+        }
+
+        #interfacePage .tabs-nav {
+            display: flex;
+            background: #f5f3ef;
+            border-bottom: 2px solid #e2dccd;
+            flex-wrap: wrap;
+            gap: 4px;
+            padding: 0 16px;
+        }
+
+        #interfacePage .tab-btn {
+            padding: 14px 28px;
+            background: transparent;
+            border: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #3a5a3a;
+            border-radius: 30px 30px 0 0;
+        }
+
+        #interfacePage .tab-btn:hover {
+            background: #e8e2d4;
+            color: #b46f2a;
+        }
+
+        #interfacePage .tab-btn.active {
+            background: white;
+            color: #c27e2a;
+            border-bottom: 3px solid #d4a373;
+            font-weight: 800;
+        }
+
+        #interfacePage .tab-pane {
+            display: none;
+            padding: 28px 30px;
+            background: white;
+            animation: fadeSlide 0.25s ease;
+        }
+
+        #interfacePage .tab-pane.active {
+            display: block;
+        }
+
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Summary Dashboard Styles */
+        #interfacePage .summary-hero {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        #interfacePage .hero-card {
+            background: linear-gradient(135deg, #f8f5f0, #fefbf5);
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid #e6dfcf;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        #interfacePage .hero-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        #interfacePage .hero-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        #interfacePage .hero-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #3a6b47;
+            line-height: 1.2;
+        }
+
+        #interfacePage .hero-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #6b5a3e;
+            margin-top: 8px;
+        }
+
+        #interfacePage .hero-trend {
+            margin-top: 12px;
+            font-size: 0.8rem;
+            color: #5cb85c;
+            font-weight: 600;
+        }
+
+        #interfacePage .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        #interfacePage .chart-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid #e6dfcf;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        #interfacePage .chart-card h4 {
+            color: #3a6b47;
+            margin-bottom: 16px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #interfacePage .chart-container {
+            position: relative;
+            height: 250px;
+        }
+
+        #interfacePage .summary-section {
+            margin-bottom: 30px;
+        }
+
+        #interfacePage .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        #interfacePage .section-header h3 {
+            color: #3a6b47;
+            font-size: 1.1rem;
+        }
+
+        #interfacePage .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        #interfacePage .summary-card {
+            background: linear-gradient(135deg, #fefbf5, #f8f5f0);
+            border-radius: 16px;
+            padding: 20px;
+            border-left: 4px solid #d4a373;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            transition: all 0.2s;
+        }
+
+        #interfacePage .summary-card:hover {
+            background: white;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+        }
+
+        #interfacePage .summary-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        #interfacePage .summary-card-title {
+            font-weight: 800;
+            color: #2c3e2b;
+            font-size: 1rem;
+        }
+
+        #interfacePage .summary-card-badge {
+            background: #d4a373;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        #interfacePage .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        #interfacePage .summary-stat {
+            text-align: center;
+        }
+
+        #interfacePage .summary-stat-value {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #3a6b47;
+        }
+
+        #interfacePage .summary-stat-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: #6b5a3e;
+        }
+
+        #interfacePage .progress-bar {
+            margin-top: 12px;
+            height: 6px;
+            background: #e2d9c8;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        #interfacePage .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+
+        #interfacePage .progress-fill.success {
+            background: linear-gradient(90deg, #5cb85c, #4a9e4a);
+        }
+
+        #interfacePage .progress-fill.warning {
+            background: linear-gradient(90deg, #f0ad4e, #e89a2e);
+        }
+
+        #interfacePage .progress-fill.danger {
+            background: linear-gradient(90deg, #d9534f, #c9302c);
+        }
+
+        #interfacePage .form-card {
+            background: #fefbf5;
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            border: 1px solid #e6dfcf;
+            margin-bottom: 32px;
+        }
+
+        #interfacePage .form-card h3 {
+            color: #3a6b47;
+            margin-bottom: 24px;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #d4a373;
+            padding-bottom: 12px;
+        }
+
+        #interfacePage .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px 28px;
+        }
+
+        #interfacePage .field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #interfacePage .field label {
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #6b5a3e;
+            margin-bottom: 6px;
+        }
+
+        #interfacePage .field label.required:after {
+            content: "*";
+            color: #d9534f;
+            margin-left: 4px;
+        }
+
+        #interfacePage input, #interfacePage select, #interfacePage textarea {
+            padding: 12px 14px;
+            border: 1.5px solid #e2d9c8;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            transition: 0.2s;
+            background: white;
+            font-family: inherit;
+        }
+
+        #interfacePage input:focus, #interfacePage select:focus, #interfacePage textarea:focus {
+            outline: none;
+            border-color: #d4a373;
+            box-shadow: 0 0 0 3px rgba(212,163,115,0.2);
+        }
+
+        #interfacePage input[readonly] {
+            background: #f5f3ef;
+            color: #5a4a2a;
+            font-weight: 600;
+        }
+
+        #interfacePage .action-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            margin: 30px 0 10px;
+        }
+
+        #interfacePage .btn {
+            padding: 12px 32px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f0ede5;
+            color: #4a5a3a;
+        }
+
+        #interfacePage .btn-primary {
+            background: #d4a373;
+            color: white;
+        }
+
+        #interfacePage .btn-primary:hover {
+            background: #b87a44;
+            transform: translateY(-2px);
+        }
+
+        #interfacePage .btn-success {
+            background: #5cb85c;
+            color: white;
+        }
+
+        #interfacePage .btn-warning {
+            background: #f0ad4e;
+            color: #2c3e2b;
+        }
+
+        #interfacePage .btn-danger {
+            background: #d9534f;
+            color: white;
+        }
+
+        #interfacePage .btn-info {
+            background: #5bc0de;
+            color: white;
+        }
+
+        #interfacePage .table-wrapper {
+            overflow-x: auto;
+            border-radius: 20px;
+            border: 1px solid #e6dfcf;
+            background: white;
+            margin-top: 20px;
+        }
+
+        #interfacePage table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.75rem;
+        }
+
+        #interfacePage th {
+            background: #3a6b47;
+            color: white;
+            padding: 10px 6px;
+            font-weight: 700;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        #interfacePage td {
+            padding: 8px 6px;
+            border-bottom: 1px solid #efeadc;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        #interfacePage tr:hover td {
+            background-color: #fff8ef;
+        }
+
+        #interfacePage .badge-success {
+            background: #d4edda;
+            color: #155724;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            display: inline-block;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        #interfacePage .badge-warning {
+            background: #fff3cd;
+            color: #856404;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        #interfacePage .badge-danger {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        #interfacePage .badge-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        #interfacePage .action-icons {
+            display: flex;
+            gap: 4px;
+            flex-wrap: nowrap;
+        }
+
+        #interfacePage .action-icon {
+            cursor: pointer;
+            padding: 3px 8px;
+            border-radius: 20px;
+            background: #f3efe7;
+            font-size: 0.7rem;
+            transition: 0.1s;
+            border: none;
+            white-space: nowrap;
+        }
+
+        #interfacePage .action-icon:hover {
+            background: #d4a373;
+            color: white;
+        }
+
+        #interfacePage .info-message {
+            background: #fef7e0;
+            border-left: 5px solid #d4a373;
+            padding: 12px 18px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            font-size: 0.85rem;
+            color: #5a4a2a;
+        }
+
+        #interfacePage .stats-bar {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        #interfacePage .stat-item {
+            background: white;
+            padding: 12px 20px;
+            border-radius: 16px;
+            border: 1px solid #e6dfcf;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        #interfacePage .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #6b5a3e;
+        }
+
+        #interfacePage .stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #3a6b47;
+        }
+
+        #interfacePage .offer-highlight {
+            background: #fff3cd;
+            font-weight: 700;
+        }
+
+        @media (max-width: 1000px) {
+            #interfacePage .summary-hero {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            #interfacePage .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 700px) {
+            #interfacePage .app-header h1 {
+                font-size: 1.1rem;
+            }
+            #interfacePage .tab-btn {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+            }
+            #interfacePage .tab-pane {
+                padding: 20px 16px;
+            }
+            #interfacePage .form-grid {
+                grid-template-columns: 1fr;
+            }
+            #interfacePage .summary-hero {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .login-header h1 { font-size: 1.2rem; white-space: normal; }
+            .login-body { padding: 28px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== LOGIN PAGE ==================== -->
+<div id="loginPage">
+    <div class="login-container">
+        <div class="login-header">
+            <h1>COMMERCIAL ROOTING</h1>
+            <p>OFFER SHEET • Track • Offer • Ship</p>
+        </div>
+
+        <div class="login-body">
+            <div id="normalView">
+                <div class="tabs">
+                    <button class="tab active" id="tabLogin" onclick="switchTab('login')">LOGIN</button>
+                    <button class="tab" id="tabSignup" onclick="switchTab('signup')">SIGN UP</button>
+                </div>
+
+                <div id="errorMessage" class="error-message"></div>
+                <div id="successMessage" class="success-message"></div>
+
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label>EMAIL ADDRESS</label>
+                        <input type="email" id="loginEmail" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>PASSWORD</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                    </div>
+                    <div class="forgot-link">
+                        <a onclick="showForgotPassword()">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn-login">SIGN IN</button>
+                </form>
+
+                <form id="signupForm" style="display: none;" onsubmit="handleSignup(event)">
+                    <div class="form-group">
+                        <label>FULL NAME</label>
+                        <input type="text" id="signupName" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>EMAIL ADDRESS</label>
+                        <input type="email" id="signupEmail" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>ROLE</label>
+                        <select id="signupRole" required>
+                            <option value="">-- Select Role --</option>
+                            <option value="hod">HOD</option>
+                            <option value="assistant_hod">ASSISTANT HOD</option>
+                            <option value="area_lead">AREA LEAD</option>
+                            <option value="supervisor">SUPERVISOR</option>
+                            <option value="intern">INTERN</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>GHSE LOCATION</label>
+                        <select id="signupGhse" required>
+                            <option value="">-- Select GHSE --</option>
+                            <option value="KP14">KP14</option>
+                            <option value="KP13">KP13</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>PASSWORD</label>
+                        <input type="password" id="signupPassword" placeholder="Min. 6 characters" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label>CONFIRM PASSWORD</label>
+                        <input type="password" id="signupConfirmPassword" placeholder="Re-enter password" required>
+                    </div>
+                    <button type="submit" class="btn-login">CREATE ACCOUNT</button>
+                </form>
+
+                <div class="divider">
+                    <span>OR CONTINUE WITH</span>
+                </div>
+
+                <div class="social-login">
+                    <a href="https://accounts.google.com/ServiceLogin?hl=en&continue=" class="social-btn google" target="_blank">
+                        <img src="https://www.google.com/favicon.ico" alt="Google" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'%3E%3Cpath fill=\'%234285F4\' d=\'M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z\'/%3E%3Cpath fill=\'%2334A853\' d=\'M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z\'/%3E%3Cpath fill=\'%23FBBC05\' d=\'M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z\'/%3E%3Cpath fill=\'%23EA4335\' d=\'M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z\'/%3E%3C/svg%3E'">
+                        Google
+                    </a>
+                    <a href="https://login.live.com/" class="social-btn microsoft" target="_blank">
+                        <img src="https://www.microsoft.com/favicon.ico" alt="Microsoft" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 23 23\'%3E%3Cpath fill=\'%23f25022\' d=\'M0 0h11v11H0z\'/%3E%3Cpath fill=\'%237fba00\' d=\'M12 0h11v11H12z\'/%3E%3Cpath fill=\'%2300a4ef\' d=\'M0 12h11v11H0z\'/%3E%3Cpath fill=\'%23ffb900\' d=\'M12 12h11v11H12z\'/%3E%3C/svg%3E'">
+                        Microsoft
+                    </a>
+                </div>
+            </div>
+
+            <div id="forgotPasswordView" style="display: none;">
+                <h3 style="color: #3a6b47; margin-bottom: 24px; text-align: center;">RESET PASSWORD</h3>
+                
+                <div id="fpError" class="error-message"></div>
+                <div id="fpSuccess" class="success-message"></div>
+
+                <div id="requestStep">
+                    <div class="form-group">
+                        <label>EMAIL ADDRESS OR PHONE</label>
+                        <input type="text" id="resetContact" placeholder="email@example.com or +1234567890">
+                    </div>
+                    <button class="btn-login" onclick="sendResetCode()">SEND RESET CODE</button>
+                </div>
+
+                <div id="verifyStep" style="display: none;">
+                    <p style="color: #6b5a3e; margin-bottom: 16px; font-size: 0.9rem;">
+                        We sent a verification code to <strong id="contactDisplay"></strong>
+                    </p>
+                    <div class="form-group">
+                        <label>VERIFICATION CODE</label>
+                        <input type="text" id="verificationCode" placeholder="000000" maxlength="6" class="verification-code">
+                    </div>
+                    <div class="timer" id="codeTimer">Code expires in: 10:00</div>
+                    <button class="btn-login" onclick="verifyCode()">VERIFY CODE</button>
+                    <p style="text-align: center; margin-top: 16px; font-size: 0.85rem;">
+                        Didn't receive code? 
+                        <span id="resendLink" class="resend-link" onclick="resendCode()">Resend</span>
+                    </p>
+                </div>
+
+                <div id="newPasswordStep" style="display: none;">
+                    <div class="form-group">
+                        <label>NEW PASSWORD</label>
+                        <input type="password" id="newPassword" placeholder="Min. 6 characters" minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label>CONFIRM NEW PASSWORD</label>
+                        <input type="password" id="confirmNewPassword" placeholder="Re-enter password">
+                    </div>
+                    <button class="btn-login" onclick="resetPassword()">RESET PASSWORD</button>
+                </div>
+
+                <div class="back-to-login">
+                    <a onclick="hideForgotPassword()">← Back to Login</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="login-footer">
+            Commercial Rooting System • Offer Sheet v1.0
+        </div>
+    </div>
+</div>
+
+<!-- ==================== INTERFACE PAGE ==================== -->
+<div id="interfacePage" style="display: none;">
+<div class="app-container">
+    <div class="app-header">
+        <h1>🌿 COMMERCIAL ROOTING OFFER SHEET</h1>
+        <div class="user-section">
+            <span class="user-info" id="userDisplay"></span>
+            <button class="logout-btn" onclick="logout()">LOGOUT</button>
+        </div>
+    </div>
+
+    <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="offer">📋 OFFER ENTRY</button>
+        <button class="tab-btn" data-tab="records">📊 OFFER RECORDS</button>
+        <button class="tab-btn" data-tab="summary">📈 SUMMARY</button>
+    </div>
+
+    <!-- OFFER ENTRY TAB -->
+    <div id="tab-offer" class="tab-pane active">
+        <div class="info-message">
+            <strong>📝 Offer Sheet Entry:</strong> Enter stock availability and offers. Mass quantity is auto-calculated.
+        </div>
+
+        <div class="form-card">
+            <h3>➕ New Offer Record</h3>
+            <div class="form-grid">
+                <div class="field">
+                    <label class="required">GROUP</label>
+                    <input type="text" id="group" placeholder="e.g., 04 Pelargonium" required>
+                </div>
+                <div class="field">
+                    <label>SUBGROUP</label>
+                    <input type="text" id="subgroup" placeholder="e.g., Zonales, Ivies">
+                </div>
+                <div class="field">
+                    <label class="required">TYPOLOGY</label>
+                    <select id="typology" required>
+                        <option value="">-- Select Typology --</option>
+                        <option value="RCS 2.0">RCS 2.0</option>
+                        <option value="Minirooter">Minirooter</option>
+                        <option value="Callused Cutting">Callused Cutting</option>
+                        <option value="Rooted Cuttings">Rooted Cuttings</option>
+                        <option value="UAC">UAC</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label class="required">BATCH NUMBER</label>
+                    <input type="text" id="batchNumber" placeholder="Batch identifier" required>
+                </div>
+                <div class="field">
+                    <label class="required">STOCK (Current in cool store)</label>
+                    <input type="number" step="1" id="stock" placeholder="Available quantity" required oninput="calculateMassQuantity()">
+                </div>
+                <div class="field">
+                    <label class="required">OBLIGATOR / CLIENT</label>
+                    <input type="text" id="obligator" placeholder="Client name" required>
+                </div>
+                <div class="field">
+                    <label>MASS QUANTITY</label>
+                    <input type="number" step="1" id="massQuantity" placeholder="Auto-calculated" readonly>
+                </div>
+                <div class="field">
+                    <label>OFFER 1 (Ship Now)</label>
+                    <input type="number" step="1" id="offer1" placeholder="Quantity to ship now" oninput="calculateMassQuantity(); validateOffers()">
+                </div>
+                <div class="field">
+                    <label>OFFER 2 (Ship Next Week)</label>
+                    <input type="number" step="1" id="offer2" placeholder="Quantity for next week" oninput="calculateMassQuantity(); validateOffers()">
+                </div>
+                <div class="field">
+                    <label>REMARKS (Why ship next week)</label>
+                    <textarea id="remarks" placeholder="Reason for shipping next week..." rows="2"></textarea>
+                </div>
+                <div class="field">
+                    <label class="required">STICKING WEEK</label>
+                    <input type="week" id="stickingWeek" required>
+                </div>
+                <div class="field">
+                    <label class="required">END WEEK</label>
+                    <input type="week" id="endWeek" required>
+                </div>
+                <div class="field">
+                    <label class="required">GHSE</label>
+                    <select id="ghse" required>
+                        <option value="">-- Select GHSE --</option>
+                        <option value="KP14">KP14</option>
+                        <option value="KP13">KP13</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="action-bar">
+                <button class="btn btn-primary" onclick="saveOffer()">💾 SAVE OFFER</button>
+                <button class="btn btn-warning" onclick="resetOfferForm()">🔄 RESET FORM</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- OFFER RECORDS TAB -->
+    <div id="tab-records" class="tab-pane">
+        <div class="info-message">📋 All offer sheet records. Use filters to narrow down results.</div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-label">Total Offers</div>
+                <div class="stat-value" id="totalRecords">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Total Stock</div>
+                <div class="stat-value" id="totalStock">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Total Offer 1</div>
+                <div class="stat-value" id="totalOffer1">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Total Offer 2</div>
+                <div class="stat-value" id="totalOffer2">0</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Remaining Stock</div>
+                <div class="stat-value" id="totalRemaining">0</div>
+            </div>
+        </div>
+
+        <div class="action-bar">
+            <button class="btn btn-success" onclick="exportToExcel()">📥 EXPORT EXCEL</button>
+            <button class="btn btn-info" onclick="loadOfferRecords()">🔄 REFRESH</button>
+            <button class="btn btn-danger" onclick="deleteAllOffers()">🗑️ DELETE ALL</button>
+        </div>
+
+        <div style="margin-bottom: 16px; display: flex; gap: 12px; flex-wrap: wrap;">
+            <select id="filterClient" onchange="filterRecords()" style="padding: 8px 16px; border-radius: 20px; border: 1px solid #e2d9c8;">
+                <option value="">All Clients</option>
+            </select>
+            <select id="filterGroup" onchange="filterRecords()" style="padding: 8px 16px; border-radius: 20px; border: 1px solid #e2d9c8;">
+                <option value="">All Groups</option>
+            </select>
+            <select id="filterGhse" onchange="filterRecords()" style="padding: 8px 16px; border-radius: 20px; border: 1px solid #e2d9c8;">
+                <option value="">All GHSE</option>
+            </select>
+            <button class="btn" onclick="clearFilters()" style="padding: 8px 16px;">Clear Filters</button>
+        </div>
+
+        <div class="table-wrapper">
+            <table id="recordsTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Group</th>
+                        <th>Subgroup</th>
+                        <th>Typology</th>
+                        <th>Batch No.</th>
+                        <th>Stock</th>
+                        <th>Client</th>
+                        <th>Mass Qty</th>
+                        <th>Offer 1</th>
+                        <th>Offer 2</th>
+                        <th>Remarks</th>
+                        <th>Sticking Wk</th>
+                        <th>End Wk</th>
+                        <th>GHSE</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="recordsBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- SUMMARY TAB -->
+    <div id="tab-summary" class="tab-pane">
+        <div class="info-message">
+            <strong>📊 Dashboard Overview:</strong> Real-time offer analytics and client performance.
+        </div>
+
+        <div class="summary-hero">
+            <div class="hero-card">
+                <div class="hero-icon">📋</div>
+                <div class="hero-value" id="heroTotalOffers">0</div>
+                <div class="hero-label">Total Offers</div>
+                <div class="hero-trend">All time entries</div>
+            </div>
+            <div class="hero-card">
+                <div class="hero-icon">📦</div>
+                <div class="hero-value" id="heroTotalStock">0</div>
+                <div class="hero-label">Total Stock</div>
+                <div class="hero-trend">Available inventory</div>
+            </div>
+            <div class="hero-card">
+                <div class="hero-icon">🚚</div>
+                <div class="hero-value" id="heroShipNow">0</div>
+                <div class="hero-label">Ship Now</div>
+                <div class="hero-trend">Immediate offers</div>
+            </div>
+            <div class="hero-card">
+                <div class="hero-icon">📅</div>
+                <div class="hero-value" id="heroShipNext">0</div>
+                <div class="hero-label">Ship Next Week</div>
+                <div class="hero-trend">Scheduled offers</div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h4>📈 Client Offer Distribution</h4>
+                <div class="chart-container">
+                    <canvas id="clientChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h4>🥧 Offer Type Split (Now vs Next Week)</h4>
+                <div class="chart-container">
+                    <canvas id="offerSplitChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary-section">
+            <div class="section-header">
+                <h3>👥 Client Summary</h3>
+                <span class="badge-success" id="clientCount">0 Clients</span>
+            </div>
+            <div class="summary-cards" id="clientCards"></div>
+        </div>
+
+        <div class="summary-section">
+            <div class="section-header">
+                <h3>🌱 Group Summary</h3>
+                <span class="badge-success" id="groupCount">0 Groups</span>
+            </div>
+            <div class="summary-cards" id="groupSummaryCards"></div>
+        </div>
+
+        <div class="summary-section">
+            <div class="section-header">
+                <h3>🏭 GHSE Summary</h3>
+                <span class="badge-success" id="ghseCount">0 Locations</span>
+            </div>
+            <div class="summary-cards" id="ghseSummaryCards"></div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+<script>
+    // ==================== LOGIN PAGE SCRIPT ====================
+    let resetTimer = null;
+    let resetTimeLeft = 600;
+    let currentResetContact = '';
+    let generatedCode = '';
+    let users = JSON.parse(localStorage.getItem('offerSheet_users')) || [];
+
+    function switchTab(tab) {
+        document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+        document.getElementById('tabSignup').classList.toggle('active', tab === 'signup');
+        document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+        document.getElementById('signupForm').style.display = tab === 'signup' ? 'block' : 'none';
+        hideMessages();
+    }
+
+    function showForgotPassword() {
+        document.getElementById('normalView').style.display = 'none';
+        document.getElementById('forgotPasswordView').style.display = 'block';
+        document.getElementById('requestStep').style.display = 'block';
+        document.getElementById('verifyStep').style.display = 'none';
+        document.getElementById('newPasswordStep').style.display = 'none';
+        document.getElementById('fpError').style.display = 'none';
+        document.getElementById('fpSuccess').style.display = 'none';
+        document.getElementById('resetContact').value = document.getElementById('loginEmail').value;
+    }
+
+    function hideForgotPassword() {
+        document.getElementById('normalView').style.display = 'block';
+        document.getElementById('forgotPasswordView').style.display = 'none';
+        if (resetTimer) { clearInterval(resetTimer); resetTimer = null; }
+    }
+
+    function hideMessages() {
+        document.getElementById('errorMessage').style.display = 'none';
+        document.getElementById('successMessage').style.display = 'none';
+    }
+
+    function showError(message) {
+        const el = document.getElementById('errorMessage');
+        el.textContent = message; el.style.display = 'block';
+        document.getElementById('successMessage').style.display = 'none';
+    }
+
+    function showSuccess(message) {
+        const el = document.getElementById('successMessage');
+        el.textContent = message; el.style.display = 'block';
+        document.getElementById('errorMessage').style.display = 'none';
+    }
+
+    function showFpError(message) {
+        const el = document.getElementById('fpError');
+        el.textContent = message; el.style.display = 'block';
+        document.getElementById('fpSuccess').style.display = 'none';
+    }
+
+    function showFpSuccess(message) {
+        const el = document.getElementById('fpSuccess');
+        el.textContent = message; el.style.display = 'block';
+        document.getElementById('fpError').style.display = 'none';
+    }
+
+    function sendResetCode() {
+        const contact = document.getElementById('resetContact').value.trim();
+        if (!contact) { showFpError('Please enter your email address or phone number.'); return; }
+        const userExists = users.some(u => u.email === contact || u.phone === contact);
+        if (!userExists) { showFpError('No account found.'); return; }
+        currentResetContact = contact;
+        generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
+        console.log('Code:', generatedCode);
+        showFpSuccess(`Verification code sent to ${contact}.`);
+        document.getElementById('requestStep').style.display = 'none';
+        document.getElementById('verifyStep').style.display = 'block';
+        document.getElementById('contactDisplay').textContent = contact;
+        resetTimeLeft = 600; startTimer();
+    }
+
+    function startTimer() {
+        if (resetTimer) clearInterval(resetTimer);
+        resetTimer = setInterval(() => {
+            resetTimeLeft--;
+            const minutes = Math.floor(resetTimeLeft / 60);
+            const seconds = resetTimeLeft % 60;
+            document.getElementById('codeTimer').textContent = `Code expires in: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+            if (resetTimeLeft <= 0) {
+                clearInterval(resetTimer); resetTimer = null;
+                document.getElementById('codeTimer').textContent = 'Code expired.';
+                document.getElementById('resendLink').classList.add('disabled');
+            }
+        }, 1000);
+    }
+
+    function resendCode() {
+        if (resetTimeLeft <= 0) { showFpError('Code expired.'); return; }
+        generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
+        showFpSuccess(`New code sent.`); resetTimeLeft = 600;
+    }
+
+    function verifyCode() {
+        const code = document.getElementById('verificationCode').value.trim();
+        if (code !== generatedCode) { showFpError('Invalid code.'); return; }
+        clearInterval(resetTimer);
+        document.getElementById('verifyStep').style.display = 'none';
+        document.getElementById('newPasswordStep').style.display = 'block';
+    }
+
+    function resetPassword() {
+        const pwd = document.getElementById('newPassword').value;
+        const cpwd = document.getElementById('confirmNewPassword').value;
+        if (pwd.length < 6 || pwd !== cpwd) { showFpError('Password mismatch/too short'); return; }
+        const idx = users.findIndex(u => u.email === currentResetContact || u.phone === currentResetContact);
+        if (idx !== -1) { users[idx].password = pwd; localStorage.setItem('offerSheet_users', JSON.stringify(users)); }
+        showFpSuccess('Password reset!');
+        setTimeout(() => { hideForgotPassword(); }, 1500);
+    }
+
+    function handleLogin(event) {
+        event.preventDefault();
+        const email = document.getElementById('loginEmail').value.trim();
+        const pwd = document.getElementById('loginPassword').value;
+        const user = users.find(u => u.email === email && u.password === pwd);
+        if (user) {
+            localStorage.setItem('offerSheet_user', JSON.stringify(user));
+            localStorage.setItem('offerSheet_session', 'active');
+            showSuccess('Login successful!');
+            setTimeout(() => {
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('interfacePage').style.display = 'block';
+                loadOfferData();
+                loadOfferRecords();
+            }, 500);
+        } else { showError('Invalid credentials.'); }
+    }
+
+    function handleSignup(event) {
+        event.preventDefault();
+        const name = document.getElementById('signupName').value.trim();
+        const email = document.getElementById('signupEmail').value.trim();
+        const pwd = document.getElementById('signupPassword').value;
+        const cpwd = document.getElementById('signupConfirmPassword').value;
+        const role = document.getElementById('signupRole').value;
+        const ghse = document.getElementById('signupGhse').value;
+        if (!name || !email || !role || !ghse || pwd !== cpwd || pwd.length < 6) { showError('Invalid input'); return; }
+        if (users.find(u => u.email === email)) { showError('Email exists'); return; }
+        const newUser = { name, email, password: pwd, role, ghse, createdAt: new Date().toISOString() };
+        users.push(newUser);
+        localStorage.setItem('offerSheet_users', JSON.stringify(users));
+        localStorage.setItem('offerSheet_user', JSON.stringify(newUser));
+        localStorage.setItem('offerSheet_session', 'active');
+        showSuccess('Account created!');
+        setTimeout(() => {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('interfacePage').style.display = 'block';
+            loadOfferData();
+            loadOfferRecords();
+        }, 500);
+    }
+
+    // ==================== OFFER SHEET SCRIPT ====================
+    let offers = [];
+    let currentUser = null;
+    let clientChart = null;
+    let offerSplitChart = null;
+    let filteredOffers = [];
+
+    function loadOfferData() {
+        const stored = localStorage.getItem('offerSheet_records');
+        offers = stored ? JSON.parse(stored) : [];
+        const storedUser = localStorage.getItem('offerSheet_user');
+        currentUser = storedUser ? JSON.parse(storedUser) : null;
+        if (!currentUser) {
+            document.getElementById('interfacePage').style.display = 'none';
+            document.getElementById('loginPage').style.display = 'flex';
+            return;
+        }
+        document.getElementById('userDisplay').textContent = `${currentUser.name} (${currentUser.ghse || 'N/A'})`;
+        filteredOffers = [...offers];
+    }
+
+    function saveOffers() {
+        localStorage.setItem('offerSheet_records', JSON.stringify(offers));
+    }
+
+    function calculateMassQuantity() {
+        const stock = parseFloat(document.getElementById('stock').value) || 0;
+        const offer1 = parseFloat(document.getElementById('offer1').value) || 0;
+        const offer2 = parseFloat(document.getElementById('offer2').value) || 0;
+        document.getElementById('massQuantity').value = stock - (offer1 + offer2);
+    }
+
+    function validateOffers() {
+        const stock = parseFloat(document.getElementById('stock').value) || 0;
+        const offer1 = parseFloat(document.getElementById('offer1').value) || 0;
+        const offer2 = parseFloat(document.getElementById('offer2').value) || 0;
+        if (offer1 + offer2 > stock) {
+            alert('Total offers cannot exceed stock!');
+            return false;
+        }
+        return true;
+    }
+
+    function saveOffer() {
+        if (!validateOffers()) return;
+        
+        const group = document.getElementById('group').value.trim();
+        const subgroup = document.getElementById('subgroup').value.trim();
+        const typology = document.getElementById('typology').value;
+        const batchNumber = document.getElementById('batchNumber').value.trim();
+        const stock = parseFloat(document.getElementById('stock').value) || 0;
+        const obligator = document.getElementById('obligator').value.trim();
+        const massQuantity = parseFloat(document.getElementById('massQuantity').value) || 0;
+        const offer1 = parseFloat(document.getElementById('offer1').value) || 0;
+        const offer2 = parseFloat(document.getElementById('offer2').value) || 0;
+        const remarks = document.getElementById('remarks').value.trim();
+        const stickingWeek = document.getElementById('stickingWeek').value;
+        const endWeek = document.getElementById('endWeek').value;
+        const ghse = document.getElementById('ghse').value;
+
+        if (!group || !typology || !batchNumber || !obligator || !stickingWeek || !endWeek || !ghse) {
+            alert('Please fill all required fields (*)');
+            return;
+        }
+
+        const offer = {
+            id: Date.now(),
+            date: new Date().toLocaleDateString(),
+            timestamp: new Date().toISOString(),
+            group, subgroup, typology, batchNumber, stock, obligator,
+            massQuantity, offer1, offer2, remarks, stickingWeek, endWeek, ghse,
+            status: massQuantity >= 0 ? 'Available' : 'Overallocated',
+            createdBy: currentUser.name
+        };
+
+        offers.unshift(offer);
+        saveOffers();
+        filteredOffers = [...offers];
+        resetOfferForm();
+        switchInterfaceTab('records');
+        alert('Offer saved successfully!');
+    }
+
+    function resetOfferForm() {
+        document.getElementById('group').value = '';
+        document.getElementById('subgroup').value = '';
+        document.getElementById('typology').value = '';
+        document.getElementById('batchNumber').value = '';
+        document.getElementById('stock').value = '';
+        document.getElementById('obligator').value = '';
+        document.getElementById('massQuantity').value = '';
+        document.getElementById('offer1').value = '';
+        document.getElementById('offer2').value = '';
+        document.getElementById('remarks').value = '';
+        document.getElementById('stickingWeek').value = '';
+        document.getElementById('endWeek').value = '';
+        document.getElementById('ghse').value = '';
+    }
+
+    function loadOfferRecords() {
+        loadOfferData();
+        updateFilterOptions();
+        renderRecordsTable();
+        updateStats();
+    }
+
+    function updateFilterOptions() {
+        const clients = [...new Set(offers.map(o => o.obligator))];
+        const groups = [...new Set(offers.map(o => o.group))];
+        const ghses = [...new Set(offers.map(o => o.ghse))];
+        
+        const clientSelect = document.getElementById('filterClient');
+        const groupSelect = document.getElementById('filterGroup');
+        const ghseSelect = document.getElementById('filterGhse');
+        
+        clientSelect.innerHTML = '<option value="">All Clients</option>';
+        groupSelect.innerHTML = '<option value="">All Groups</option>';
+        ghseSelect.innerHTML = '<option value="">All GHSE</option>';
+        
+        clients.forEach(c => { const opt = document.createElement('option'); opt.value = c; opt.textContent = c; clientSelect.appendChild(opt); });
+        groups.forEach(g => { const opt = document.createElement('option'); opt.value = g; opt.textContent = g; groupSelect.appendChild(opt); });
+        ghses.forEach(g => { const opt = document.createElement('option'); opt.value = g; opt.textContent = g; ghseSelect.appendChild(opt); });
+    }
+
+    function filterRecords() {
+        const client = document.getElementById('filterClient').value;
+        const group = document.getElementById('filterGroup').value;
+        const ghse = document.getElementById('filterGhse').value;
+        
+        filteredOffers = offers.filter(o => 
+            (!client || o.obligator === client) &&
+            (!group || o.group === group) &&
+            (!ghse || o.ghse === ghse)
+        );
+        renderRecordsTable();
+    }
+
+    function clearFilters() {
+        document.getElementById('filterClient').value = '';
+        document.getElementById('filterGroup').value = '';
+        document.getElementById('filterGhse').value = '';
+        filteredOffers = [...offers];
+        renderRecordsTable();
+    }
+
+    function renderRecordsTable() {
+        const tbody = document.getElementById('recordsBody');
+        if (filteredOffers.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="16" style="text-align:center;padding:40px;">No offers found.</td></tr>';
+            return;
+        }
+        tbody.innerHTML = '';
+        filteredOffers.forEach(o => {
+            const row = tbody.insertRow();
+            const statusClass = o.status === 'Available' ? 'badge-success' : 'badge-danger';
+            row.innerHTML = `
+                <td>${o.date}</td>
+                <td>${escapeHtml(o.group)}</td>
+                <td>${escapeHtml(o.subgroup || '-')}</td>
+                <td>${escapeHtml(o.typology)}</td>
+                <td><strong>${escapeHtml(o.batchNumber)}</strong></td>
+                <td>${o.stock.toLocaleString()}</td>
+                <td>${escapeHtml(o.obligator)}</td>
+                <td>${o.massQuantity.toLocaleString()}</td>
+                <td class="offer-highlight">${o.offer1.toLocaleString()}</td>
+                <td>${o.offer2.toLocaleString()}</td>
+                <td>${escapeHtml(o.remarks || '-')}</td>
+                <td>${o.stickingWeek}</td>
+                <td>${o.endWeek}</td>
+                <td><span class="badge-info">${escapeHtml(o.ghse)}</span></td>
+                <td><span class="${statusClass}">${o.status}</span></td>
+                <td class="action-icons">
+                    <button class="action-icon" onclick="editOffer(${o.id})">EDIT</button>
+                    <button class="action-icon" onclick="deleteOffer(${o.id})">DEL</button>
+                </td>
+            `;
+        });
+    }
+
+    function updateStats() {
+        document.getElementById('totalRecords').textContent = filteredOffers.length;
+        document.getElementById('totalStock').textContent = filteredOffers.reduce((s, o) => s + o.stock, 0).toLocaleString();
+        document.getElementById('totalOffer1').textContent = filteredOffers.reduce((s, o) => s + o.offer1, 0).toLocaleString();
+        document.getElementById('totalOffer2').textContent = filteredOffers.reduce((s, o) => s + o.offer2, 0).toLocaleString();
+        document.getElementById('totalRemaining').textContent = filteredOffers.reduce((s, o) => s + o.massQuantity, 0).toLocaleString();
+        loadSummary();
+    }
+
+    function loadSummary() {
+        if (offers.length === 0) {
+            document.getElementById('heroTotalOffers').textContent = '0';
+            document.getElementById('heroTotalStock').textContent = '0';
+            document.getElementById('heroShipNow').textContent = '0';
+            document.getElementById('heroShipNext').textContent = '0';
+            return;
+        }
+
+        const totalStock = offers.reduce((s, o) => s + o.stock, 0);
+        const totalOffer1 = offers.reduce((s, o) => s + o.offer1, 0);
+        const totalOffer2 = offers.reduce((s, o) => s + o.offer2, 0);
+
+        document.getElementById('heroTotalOffers').textContent = offers.length;
+        document.getElementById('heroTotalStock').textContent = totalStock.toLocaleString();
+        document.getElementById('heroShipNow').textContent = totalOffer1.toLocaleString();
+        document.getElementById('heroShipNext').textContent = totalOffer2.toLocaleString();
+
+        const clientSummary = {};
+        const groupSummary = {};
+        const ghseSummary = {};
+
+        offers.forEach(o => {
+            if (!clientSummary[o.obligator]) clientSummary[o.obligator] = { stock: 0, offer1: 0, offer2: 0, count: 0 };
+            clientSummary[o.obligator].stock += o.stock;
+            clientSummary[o.obligator].offer1 += o.offer1;
+            clientSummary[o.obligator].offer2 += o.offer2;
+            clientSummary[o.obligator].count++;
+
+            if (!groupSummary[o.group]) groupSummary[o.group] = { stock: 0, offer1: 0, offer2: 0, count: 0 };
+            groupSummary[o.group].stock += o.stock;
+            groupSummary[o.group].offer1 += o.offer1;
+            groupSummary[o.group].offer2 += o.offer2;
+            groupSummary[o.group].count++;
+
+            if (!ghseSummary[o.ghse]) ghseSummary[o.ghse] = { stock: 0, offer1: 0, offer2: 0, count: 0 };
+            ghseSummary[o.ghse].stock += o.stock;
+            ghseSummary[o.ghse].offer1 += o.offer1;
+            ghseSummary[o.ghse].offer2 += o.offer2;
+            ghseSummary[o.ghse].count++;
+        });
+
+        document.getElementById('clientCount').textContent = Object.keys(clientSummary).length + ' Clients';
+        document.getElementById('groupCount').textContent = Object.keys(groupSummary).length + ' Groups';
+        document.getElementById('ghseCount').textContent = Object.keys(ghseSummary).length + ' Locations';
+
+        renderSummaryCards('clientCards', clientSummary);
+        renderSummaryCards('groupSummaryCards', groupSummary);
+        renderSummaryCards('ghseSummaryCards', ghseSummary);
+
+        renderCharts(clientSummary);
+    }
+
+    function renderSummaryCards(containerId, summary) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = '';
+        Object.entries(summary).sort((a, b) => b[1].offer1 - a[1].offer1).forEach(([name, data]) => {
+            const card = document.createElement('div');
+            card.className = 'summary-card';
+            card.innerHTML = `
+                <div class="summary-card-header">
+                    <span class="summary-card-title">${escapeHtml(name)}</span>
+                    <span class="summary-card-badge">${data.count} offers</span>
+                </div>
+                <div class="summary-stats">
+                    <div class="summary-stat">
+                        <div class="summary-stat-value">${data.stock.toLocaleString()}</div>
+                        <div class="summary-stat-label">Stock</div>
+                    </div>
+                    <div class="summary-stat">
+                        <div class="summary-stat-value">${data.offer1.toLocaleString()}</div>
+                        <div class="summary-stat-label">Ship Now</div>
+                    </div>
+                    <div class="summary-stat">
+                        <div class="summary-stat-value">${data.offer2.toLocaleString()}</div>
+                        <div class="summary-stat-label">Next Week</div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function renderCharts(clientSummary) {
+        if (clientChart) clientChart.destroy();
+        if (offerSplitChart) offerSplitChart.destroy();
+
+        const clientCtx = document.getElementById('clientChart').getContext('2d');
+        const clients = Object.keys(clientSummary).slice(0, 8);
+        clientChart = new Chart(clientCtx, {
+            type: 'bar',
+            data: {
+                labels: clients,
+                datasets: [
+                    { label: 'Ship Now', data: clients.map(c => clientSummary[c].offer1), backgroundColor: '#5cb85c' },
+                    { label: 'Next Week', data: clients.map(c => clientSummary[c].offer2), backgroundColor: '#f0ad4e' }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        const splitCtx = document.getElementById('offerSplitChart').getContext('2d');
+        const totalOffer1 = offers.reduce((s, o) => s + o.offer1, 0);
+        const totalOffer2 = offers.reduce((s, o) => s + o.offer2, 0);
+        offerSplitChart = new Chart(splitCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Ship Now', 'Ship Next Week'],
+                datasets: [{ data: [totalOffer1, totalOffer2], backgroundColor: ['#5cb85c', '#f0ad4e'] }]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
+    }
+
+    function editOffer(id) {
+        const offer = offers.find(o => o.id === id);
+        if (!offer) return;
+        document.getElementById('group').value = offer.group;
+        document.getElementById('subgroup').value = offer.subgroup || '';
+        document.getElementById('typology').value = offer.typology;
+        document.getElementById('batchNumber').value = offer.batchNumber;
+        document.getElementById('stock').value = offer.stock;
+        document.getElementById('obligator').value = offer.obligator;
+        document.getElementById('offer1').value = offer.offer1;
+        document.getElementById('offer2').value = offer.offer2;
+        document.getElementById('remarks').value = offer.remarks || '';
+        document.getElementById('stickingWeek').value = offer.stickingWeek;
+        document.getElementById('endWeek').value = offer.endWeek;
+        document.getElementById('ghse').value = offer.ghse;
+        calculateMassQuantity();
+        offers = offers.filter(o => o.id !== id);
+        saveOffers();
+        switchInterfaceTab('offer');
+        alert('Offer loaded for editing.');
+    }
+
+    function deleteOffer(id) {
+        if (confirm('Delete this offer?')) {
+            offers = offers.filter(o => o.id !== id);
+            saveOffers();
+            filteredOffers = [...offers];
+            loadOfferRecords();
+        }
+    }
+
+    function deleteAllOffers() {
+        if (confirm('DELETE ALL OFFERS?')) {
+            offers = [];
+            saveOffers();
+            filteredOffers = [];
+            loadOfferRecords();
+        }
+    }
+
+    function exportToExcel() {
+        if (filteredOffers.length === 0) { alert('No data'); return; }
+        const ws = XLSX.utils.json_to_sheet(filteredOffers.map(o => ({
+            Date: o.date, Group: o.group, Subgroup: o.subgroup, Typology: o.typology,
+            Batch: o.batchNumber, Stock: o.stock, Client: o.obligator, 'Mass Qty': o.massQuantity,
+            'Offer 1': o.offer1, 'Offer 2': o.offer2, Remarks: o.remarks,
+            'Sticking Week': o.stickingWeek, 'End Week': o.endWeek, GHSE: o.ghse, Status: o.status
+        })));
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "OfferSheet");
+        XLSX.writeFile(wb, `OfferSheet_${new Date().toISOString().slice(0,10)}.xlsx`);
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[m]);
+    }
+
+    function switchInterfaceTab(tabId) {
+        document.querySelectorAll('#interfacePage .tab-pane').forEach(p => p.classList.remove('active'));
+        document.getElementById(`tab-${tabId}`).classList.add('active');
+        document.querySelectorAll('#interfacePage .tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector(`#interfacePage .tab-btn[data-tab="${tabId}"]`).classList.add('active');
+        if (tabId === 'records') loadOfferRecords();
+        if (tabId === 'summary') { loadOfferData(); loadSummary(); }
+    }
+
+    function logout() {
+        localStorage.removeItem('offerSheet_session');
+        document.getElementById('interfacePage').style.display = 'none';
+        document.getElementById('loginPage').style.display = 'flex';
+    }
+
+    // ==================== INITIALIZATION ====================
+    document.querySelectorAll('#interfacePage .tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => switchInterfaceTab(btn.getAttribute('data-tab')));
+    });
+
+    window.onload = () => {
+        const session = localStorage.getItem('offerSheet_session');
+        if (session === 'active') {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('interfacePage').style.display = 'block';
+            loadOfferData();
+            loadOfferRecords();
+        } else {
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('interfacePage').style.display = 'none';
+        }
+    };
+</script>
+</body>
+</html>
